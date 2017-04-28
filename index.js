@@ -4,16 +4,19 @@ var bodyParser = require('body-parser');
 
 app.set('port', (process.env.PORT || 3000));
 app.use(express.static(__dirname + '/public'));
+
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.set('views', __dirname);
+app.set('view engine', 'ejs');
+
 app.get('/', function (req, res) {
-	res.sendFile(__dirname + '/index.html');
+	res.render('index', { input: '', abstract: '' });
 });
 
 app.post('/', function (req, res) {
 	var body = req.body;
-	res.set('Content-Type', 'text/plain');
-	res.send(body.article);
+	res.render('index', { input: body.article, abstract: 'how bow dah' });
 });
 
 app.listen(app.get('port'), function (){
