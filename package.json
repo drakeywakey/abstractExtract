@@ -4,6 +4,7 @@
   "description": "A simple nlp project that generates an abstract of a given article",
   "main": "index.js",
   "dependencies": {
+    "body-parser": "^1.17.1",
     "express": "^4.15.2"
   },
   "devDependencies": {},
@@ -13,6 +14,6 @@
   "author": "Drake Bennion",
   "license": "ISC",
   "engines": {
-  	"node": "6.10.2"
+    "node": "6.10.2"
   }
 }
