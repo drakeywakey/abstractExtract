@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var abstractExtractor = require('./abstract');
 
 app.set('port', (process.env.PORT || 3000));
 app.use(express.static(__dirname + '/public'));
@@ -16,7 +17,16 @@ app.get('/', function (req, res) {
 
 app.post('/', function (req, res) {
 	var body = req.body;
-	res.render('index', { input: body.article, abstract: 'how bow dah' });
+	abstractExtractor.summarize(body.article)
+	.then(function (abstract) {
+		res.render('index', { input: body.article, abstract: abstract });
+	})
+	.catch(function (err) {
+		console.error(err);
+	});
+	//var abstract = abstractExtractor(body.article);
+	//console.log(abstract);
+	//res.render('index', { input: body.article, abstract: abstract });
 });
 
 app.listen(app.get('port'), function (){
